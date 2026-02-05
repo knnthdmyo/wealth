@@ -42,8 +42,14 @@ if git show-ref --verify --quiet "refs/heads/$BRANCH_NAME"; then
     CURRENT_BRANCH=$(git branch --show-current)
     if [ "$CURRENT_BRANCH" = "$BRANCH_NAME" ]; then
         echo "⚠️  You are currently on branch '$BRANCH_NAME'"
-        echo "   Switching to master branch..."
-        git checkout master
+        # Determine the default branch
+        DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+        # Fallback to master if main doesn't exist
+        if ! git show-ref --verify --quiet "refs/heads/$DEFAULT_BRANCH"; then
+            DEFAULT_BRANCH="master"
+        fi
+        echo "   Switching to $DEFAULT_BRANCH branch..."
+        git checkout "$DEFAULT_BRANCH"
     fi
     
     echo "🗑️  Deleting local branch..."
