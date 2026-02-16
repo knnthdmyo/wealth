@@ -9,6 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/Header";
 import Menu from "@/components/Menu";
+import BottomNav from "@/components/BottomNav";
 import AccountCard from "@/components/AccountCard";
 import Modal from "@/components/Modal";
 import CurrencySelect from "@/components/CurrencySelect";
@@ -274,7 +275,7 @@ export default function DashboardClient() {
 
   return (
     <div className="min-h-screen">
-      <Header title={userTitle} onMenuClick={() => setIsMenuOpen(true)} />
+      <Header title={userTitle} />
 
       <Menu
         isOpen={isMenuOpen}
@@ -285,30 +286,7 @@ export default function DashboardClient() {
         }}
       />
 
-      <main className="mx-auto w-full max-w-[480px] space-y-6 px-4 pb-6">
-        <div className="sticky top-[60px] z-10 -mx-4 flex gap-2 border-b border-slate-200 bg-canvas-light/80 px-4 backdrop-blur dark:border-slate-800 dark:bg-canvas-dark/80">
-          <button
-            onClick={() => setActiveTab("overview")}
-            className={`px-4 py-3 text-sm font-semibold transition-colors ${
-              activeTab === "overview"
-                ? "border-b-2 border-teal-500 text-teal-600 dark:text-teal-400"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-            }`}
-          >
-            Overview
-          </button>
-          <button
-            onClick={() => setActiveTab("accounts")}
-            className={`px-4 py-3 text-sm font-semibold transition-colors ${
-              activeTab === "accounts"
-                ? "border-b-2 border-teal-500 text-teal-600 dark:text-teal-400"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-            }`}
-          >
-            Accounts
-          </button>
-        </div>
-
+      <main className="mx-auto w-full max-w-[480px] space-y-6 px-4 pb-28">
         {activeTab === "overview" ? (
           <div className="animate-fade-in">
             <section className="grid gap-4">
@@ -728,6 +706,7 @@ export default function DashboardClient() {
           )}
         </div>
       </Modal>
+      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} onMenuClick={() => setIsMenuOpen(true)} />
     </div>
   );
 }
