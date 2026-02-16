@@ -42,6 +42,17 @@ npm run dev
 
 Open http://localhost:3000.
 
+## Repository Maintenance
+
+### Cleanup Closed PR Branches
+To clean up closed AI-generated PR branches from the repository:
+
+```bash
+./.github/scripts/cleanup-closed-pr-branch.sh
+```
+
+See [.github/CLEANUP_CLOSED_PR.md](.github/CLEANUP_CLOSED_PR.md) for detailed instructions.
+
 ## Notes
 - FX rates are fetched from exchangerate-api.com via /api/fx and cached for 12 hours.
 - Account history records are inserted automatically on create and update.
